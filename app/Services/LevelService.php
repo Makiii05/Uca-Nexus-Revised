@@ -12,6 +12,11 @@ class LevelService
         return Level::with('program.department')->orderBy('program_id')->orderBy('order')->get();
     }
 
+    public function getForDropdown(): Collection
+    {
+        return Level::with('program.department')->orderBy('program_id')->orderBy('order')->get();
+    }
+
     public function create(array $data): Level
     {
         return Level::create($data);

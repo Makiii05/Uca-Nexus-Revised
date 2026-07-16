@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\Registrar\DepartmentController;
 use App\Http\Controllers\Web\Registrar\LevelController;
 use App\Http\Controllers\Web\Registrar\ProgramController;
 use App\Http\Controllers\Web\Registrar\SchoolYearController;
+use App\Http\Controllers\Web\Registrar\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -49,6 +50,11 @@ Route::middleware('auth')->group(function () {
         Route::post('academic-terms', [AcademicTermController::class, 'store'])->name('academic-terms.store');
         Route::put('academic-terms/{academic_term}', [AcademicTermController::class, 'update'])->name('academic-terms.update');
         Route::delete('academic-terms/{academic_term}', [AcademicTermController::class, 'destroy'])->name('academic-terms.destroy');
+
+        Route::get('subjects', [SubjectController::class, 'index'])->name('subjects.index');
+        Route::post('subjects', [SubjectController::class, 'store'])->name('subjects.store');
+        Route::put('subjects/{subject}', [SubjectController::class, 'update'])->name('subjects.update');
+        Route::delete('subjects/{subject}', [SubjectController::class, 'destroy'])->name('subjects.destroy');
 
         Route::get('school-years', [SchoolYearController::class, 'index'])->name('school-years.index');
         Route::post('school-years', [SchoolYearController::class, 'store'])->name('school-years.store');

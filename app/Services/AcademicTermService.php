@@ -12,6 +12,11 @@ class AcademicTermService
         return AcademicTerm::with(['schoolYear', 'department'])->orderBy('start_date')->get();
     }
 
+    public function getForDropdown(): Collection
+    {
+        return AcademicTerm::with(['schoolYear', 'department'])->orderBy('start_date')->get();
+    }
+
     public function create(array $data): AcademicTerm
     {
         return AcademicTerm::create($data);

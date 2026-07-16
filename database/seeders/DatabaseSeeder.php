@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DefaultAccountsSeeder::class,
+            SubjectSeeder::class,
         ]);
     }
 }

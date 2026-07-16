@@ -12,6 +12,11 @@ class CurriculumService
         return Curriculum::with('department')->orderBy('curriculum')->get();
     }
 
+    function getForDropdown(): Collection
+    {
+        return Curriculum::with('department')->orderBy('curriculum')->get();
+    }
+
     public function create(array $data): Curriculum
     {
         return Curriculum::create($data);
