@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('place_of_birth');
             $table->string('civil_status')->default('Single');
             $table->string('student_type')->default('new');
-            $table->string('academic_year_admitted')->nullable();
+            $table->string('school_year_admitted')->nullable();
             $table->foreignId('application_id')->constrained('applicants')->cascadeOnDelete();
             $table->string('status')->default('enrolled');
             $table->boolean('is_exported')->default(false);

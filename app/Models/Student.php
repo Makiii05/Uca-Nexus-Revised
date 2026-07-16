@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
     'student_number', 'lrn', 'department_id', 'program_id', 'level_id',
     'last_name', 'first_name', 'middle_name', 'sex', 'citizenship', 'religion',
     'birthdate', 'place_of_birth', 'civil_status', 'student_type',
-    'academic_year_admitted', 'application_id', 'status', 'is_exported',
+    'school_year_admitted', 'application_id', 'status', 'is_exported',
 ])]
 class Student extends Model
 {

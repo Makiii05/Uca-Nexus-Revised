@@ -241,8 +241,149 @@ Models: - Student - Subject - Enrollment
   Jobs           Long-running tasks
   Views          Presentation
   Components     Reusable UI
+  Enums          Domain vocabulary (string-backed PHP 8.1 enums)
 
 ------------------------------------------------------------------------
+
+# Enums
+
+Use PHP 8.1 backed enums for dropdown values instead of hardcoded strings.
+Always use `Rule::enum()` in Form Requests for validation and `protected function casts()` in Models for automatic conversion.
+
+## Pattern
+
+```php
+<?php
+
+namespace App\Enums;
+
+enum Status: string
+{
+    case Active = 'active';
+    case Inactive = 'inactive';
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::Active => 'Active',
+            self::Inactive => 'Inactive',
+        };
+    }
+
+    // Optional: return a DaisyUI badge class based on the value
+    public function badge(): string
+    {
+        return match ($this) {
+            self::Active => 'badge-success',
+            self::Inactive => 'badge-ghost',
+        };
+    }
+}
+```
+
+## Usage in Form Requests
+
+```php
+use App\Enums\Status;
+use Illuminate\Validation\Rule;
+
+public function rules(): array
+{
+    return [
+        'status' => ['required', Rule::enum(Status::class)],
+    ];
+}
+```
+
+## Usage in Models
+
+```php
+use App\Enums\Status;
+
+protected function casts(): array
+{
+    return [
+        'status' => Status::class,
+    ];
+}
+```
+
+Now `$model->status` returns the enum instance — call `->label()` for display, `->badge()` for CSS class, `->value` for the raw string.
+
+## Usage in Blade
+
+```blade
+{{-- Dropdown from enum --}}
+<select name="status">
+    @foreach(App\Enums\Status::cases() as $s)
+        <option value="{{ $s->value }}" @selected(old('status') === $s->value)>
+            {{ $s->label() }}
+        </option>
+    @endforeach
+</select>
+
+{{-- Badge --}}
+<span class="badge text-xs {{ $entity->status->badge() }}">
+    {{ $entity->status->label() }}
+</span>
+```
+
+## DB-Driven Dropdowns
+
+For dropdowns populated from the database (e.g. departments, programs, school years):
+
+**Never query the database directly in Blade or the controller.** Create a `getForDropdown()` method on the corresponding service, then inject the service into the controller.
+
+### Service
+
+```php
+class DepartmentService
+{
+    public function getForDropdown(): Collection
+    {
+        return Department::orderBy('code')->get();
+    }
+}
+```
+
+### Controller
+
+```php
+use App\Services\DepartmentService;
+
+class SomeController extends Controller
+{
+    public function __construct(
+        private readonly SomeService $someService,
+        private readonly DepartmentService $departmentService,
+    ) {}
+
+    public function index()
+    {
+        $items = $this->someService->getAll();
+        $departments = $this->departmentService->getForDropdown();
+
+        return view('some.view', compact('items', 'departments'));
+    }
+}
+```
+
+### Blade
+
+```blade
+<select name="department_id">
+    <option value="">Select department</option>
+    @foreach($departments as $dept)
+        <option value="{{ $dept->id }}" @selected(old('department_id') == $dept->id)>
+            {{ $dept->code }} - {{ $dept->description }}
+        </option>
+    @endforeach
+</select>
+```
+
+This keeps the view passive and the controller responsible for wiring, with data logic centralized in services.
+
+---
 
 # Development Checklist
 

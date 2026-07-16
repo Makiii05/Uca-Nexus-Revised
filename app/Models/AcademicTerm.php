@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\Status;
+use App\Enums\TermType;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['code', 'description', 'type', 'department_id', 'academic_year_id', 'start_date', 'end_date', 'status'])]
+#[Fillable(['code', 'description', 'type', 'department_id', 'school_year_id', 'start_date', 'end_date', 'status'])]
 class AcademicTerm extends Model
 {
     protected function casts(): array
@@ -15,6 +17,8 @@ class AcademicTerm extends Model
         return [
             'start_date' => 'date',
             'end_date' => 'date',
+            'type' => TermType::class,
+            'status' => Status::class,
         ];
     }
 
@@ -23,9 +27,9 @@ class AcademicTerm extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function academicYear(): BelongsTo
+    public function schoolYear(): BelongsTo
     {
-        return $this->belongsTo(AcademicYear::class);
+        return $this->belongsTo(SchoolYear::class);
     }
 
     public function prospectuses(): HasMany

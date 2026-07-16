@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
     'strand', 'first_program_choice', 'second_program_choice', 'third_program_choice',
     'last_name', 'first_name', 'middle_name', 'sex', 'citizenship', 'religion',
     'birthdate', 'place_of_birth', 'civil_status',
-    'status', 'academic_year', 'reject_reason',
+    'status', 'school_year', 'reject_reason',
 ])]
 class Applicant extends Model
 {

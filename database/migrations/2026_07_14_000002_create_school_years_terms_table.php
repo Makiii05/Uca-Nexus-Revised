@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('academic_years', function (Blueprint $table) {
+        Schema::create('school_years', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('description');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('type')->default('semester');
             $table->foreignId('department_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('academic_year_id')->constrained('academic_years')->cascadeOnDelete();
+            $table->foreignId('school_year_id')->constrained('school_years')->cascadeOnDelete();
             $table->date('start_date');
             $table->date('end_date');
             $table->string('status');
@@ -35,6 +35,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('academic_terms');
-        Schema::dropIfExists('academic_years');
+        Schema::dropIfExists('school_years');
     }
 };

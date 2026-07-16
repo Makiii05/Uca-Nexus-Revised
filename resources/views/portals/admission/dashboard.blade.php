@@ -2,11 +2,6 @@
     title="Admission Dashboard"
     header="Welcome back, {{ auth()->user()->name }}"
     subheader="Admission Portal"
-    :menuItems="[
-        ['label' => 'Dashboard', 'route' => route('dashboard'), 'icon' => 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'],
-        ['label' => 'Applicants', 'route' => '#'],
-        ['label' => 'Schedules', 'route' => '#'],
-    ]"
 >
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
@@ -19,7 +14,7 @@
                 </div>
             </div>
             <p class="text-3xl font-bold text-slate-800">0</p>
-            <p class="text-xs text-slate-400 mt-1">This academic year</p>
+            <p class="text-xs text-slate-400 mt-1">This school year</p>
         </div>
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
             <div class="flex items-center justify-between mb-2">

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('place_of_birth');
             $table->string('civil_status');
             $table->string('status')->default('pending');
-            $table->string('academic_year')->nullable();
+            $table->string('school_year')->nullable();
             $table->string('reject_reason')->nullable();
             $table->timestamps();
         });
