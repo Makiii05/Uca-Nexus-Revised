@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\Registrar\DepartmentController;
 use App\Http\Controllers\Web\Registrar\LevelController;
 use App\Http\Controllers\Web\Registrar\ProgramController;
 use App\Http\Controllers\Web\Registrar\SchoolYearController;
+use App\Http\Controllers\Web\Registrar\ProspectusController;
 use App\Http\Controllers\Web\Registrar\SubjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,5 +61,11 @@ Route::middleware('auth')->group(function () {
         Route::post('school-years', [SchoolYearController::class, 'store'])->name('school-years.store');
         Route::put('school-years/{school_year}', [SchoolYearController::class, 'update'])->name('school-years.update');
         Route::delete('school-years/{school_year}', [SchoolYearController::class, 'destroy'])->name('school-years.destroy');
+
+        Route::get('prospectus/curricula-by-department', [ProspectusController::class, 'curriculaByDepartment'])->name('prospectus.curricula-by-department');
+        Route::get('prospectus', [ProspectusController::class, 'index'])->name('prospectus.index');
+        Route::post('prospectus', [ProspectusController::class, 'store'])->name('prospectus.store');
+        Route::put('prospectus/{prospectus}', [ProspectusController::class, 'update'])->name('prospectus.update');
+        Route::delete('prospectus/{prospectus}', [ProspectusController::class, 'destroy'])->name('prospectus.destroy');
     });
 });

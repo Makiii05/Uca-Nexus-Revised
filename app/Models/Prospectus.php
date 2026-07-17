@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,6 +10,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable(['curriculum_id', 'level_id', 'term_id', 'subject_id', 'status'])]
 class Prospectus extends Model
 {
+    protected function casts(): array
+    {
+        return [
+            'status' => Status::class,
+        ];
+    }
+
+
     public function curriculum(): BelongsTo
     {
         return $this->belongsTo(Curriculum::class);
