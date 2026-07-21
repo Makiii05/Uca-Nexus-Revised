@@ -14,7 +14,7 @@ class ProgramService
 
     public function getForDropdown(): Collection
     {
-        return Program::orderBy('code')->get();
+        return Program::with('department')->orderBy('code')->get();
     }
 
     public function create(array $data): Program

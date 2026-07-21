@@ -10,11 +10,17 @@ use App\Http\Controllers\Web\Registrar\ProgramController;
 use App\Http\Controllers\Web\Registrar\SchoolYearController;
 use App\Http\Controllers\Web\Registrar\ProspectusController;
 use App\Http\Controllers\Web\Registrar\SubjectController;
+use App\Http\Controllers\Web\Website\ApplyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
 })->name('index');
+
+Route::prefix('application')->name('application.')->group(function () {
+    Route::get('/', [ApplyController::class, 'index'])->name('index');
+    Route::post('/', [ApplyController::class, 'store'])->name('store');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('login/{type}', [LoginController::class, 'create'])->name('login');
